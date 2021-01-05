@@ -1,0 +1,15 @@
+- name: download the images to rpi from file
+  hosts: target
+  tasks:
+    - name: download the images in pi
+      get_url:
+        url: "{{ item }}"
+        dest: /home/pi/Desktop/Slideshow/Images
+      when: ansible_user== 'pi'
+      with_lines: cat /home/ggshc/raspi-ansible-code/file.txt
+    - name: download the images in ggshcos
+      get_url:
+        url: "{{ item }}"
+        dest: /home/ggshcos
+      when: ansible_user== 'ggshcos'
+      with_lines: cat /home/ggshc/raspi-ansible-code/file.txt
